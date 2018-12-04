@@ -5,10 +5,10 @@ Project is basically a dynamic web application that provides a list of items wit
 
 ### Getting started
 
-1- Install [Python](https://www.python.org/)
-2- Install [Vagrant](https://www.vagrantup.com/)
-3- Install [VirtualBox](https://www.virtualbox.org/)
-4- Open the command-line
+1- Install [Python](https://www.python.org/)  
+2- Install [Vagrant](https://www.vagrantup.com/)  
+3- Install [VirtualBox](https://www.virtualbox.org/)  
+4- Open the command-line  
 for windows users, you can [download Git](http://git-scm.com/downloads) and Install the version for your operating system to have a Unix-style terminal.
 for linux and Mac users, you can use the regular terminal program.
 
