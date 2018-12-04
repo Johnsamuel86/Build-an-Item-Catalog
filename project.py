@@ -296,6 +296,36 @@ def search():
                            login_session=login_session)
 
 
+# JSON endpoints
+@app.route('/category.json/')
+def itemsCategoryJSON():
+    category_json = []
+    for category in [category.serialize for category
+                     in session.query(Category).all()]:
+        items = [item.serialize for item in
+                 session.query(Items).filter_by
+                 (category_id=category["id"]).all()]
+        if items:
+            category["items"] = items
+            category_json.append(category)
+        else:
+            category_json.append(category)
+    return jsonify(category=category_json)
+
+
+@app.route('/category/<int:category_id>.json/')
+def categoryJSON(category_id):
+    items = session.query(Items).filter_by(category_id=category_id).all()
+    return jsonify(Items=[item.serialize for item in items])
+
+
+@app.route('/category/<int:category_id>/<int:item_id>.json/')
+def itemJSON(category_id, item_id):
+    item = session.query(Items).filter_by(category_id=category_id,
+                                          id=item_id).first()
+    return jsonify(Item=item.serialize)
+
+
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
