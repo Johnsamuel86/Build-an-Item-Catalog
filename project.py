@@ -268,6 +268,23 @@ def editItem(category_name, item_id):
                                categories=categories)
 
 
+# Delete an item
+@app.route('/catalog/<int:item_id>/delete', methods=['GET'])
+def deleteItem(item_id):
+    if "username" not in login_session:
+        flash("Sorry you need to login to delete this item !!", "danger")
+        return redirect(url_for("home"))
+    itemToDelete = session.query(Items).filter_by(id=item_id).one()
+    creator = getUserInfo(itemToDelete.user_id)
+    if creator.id != login_session["user_id"]:
+        flash("You are not the creator for this item, STAY AWAY !!!",
+              "danger")
+        return redirect(url_for("home"))
+    session.delete(itemToDelete)
+    session.commit()
+    flash('Item is Successfully Deleted', "success")
+    return redirect(url_for('home'))
+
 
 # Search for an item
 @app.route("/search", methods=['POST'])
