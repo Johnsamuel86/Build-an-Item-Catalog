@@ -237,6 +237,38 @@ def newItem():
                                categories=categories)
 
 
+# Edit an item
+@app.route('/catalog/<string:category_name>/<int:item_id>/edit',
+           methods=['GET', 'POST'])
+def editItem(category_name, item_id):
+    if "username" not in login_session:
+        flash("Sorry you need to login to edit this item !!", "danger")
+        return redirect(url_for("home"))
+    editedItem = session.query(Items).filter_by(id=item_id).one()
+    creator = getUserInfo(editedItem.user_id)
+    if creator.id != login_session["user_id"]:
+        flash("You are not the creator for this item, STAY AWAY !!!",
+              "danger")
+        return redirect(url_for("home"))
+    if request.method == 'POST':
+        if request.form['name']:
+            editedItem.name = request.form['name']
+        if request.form['description']:
+            editedItem.description = request.form['description']
+        if request.form['category']:
+            editedItem.category_id = request.form['category']
+        session.add(editedItem)
+        session.commit()
+        flash('Item is Successfully Edited', "success")
+        return redirect(url_for('home'))
+    else:
+        categories = session.query(Category).all()
+        return render_template('edititem.html', item=editedItem,
+                               login_session=login_session,
+                               categories=categories)
+
+
+
 # Search for an item
 @app.route("/search", methods=['POST'])
 def search():
