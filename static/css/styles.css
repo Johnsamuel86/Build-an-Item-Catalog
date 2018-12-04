@@ -1,0 +1,188 @@
+/* General Styling*/
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, a, ol, ul, li, form, label, nav {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+ul, li {
+	list-style: none;
+}
+html, body {
+	height: 100%;
+}
+/* Main page Sections*/
+
+/* Title */
+
+.title {
+	position: fixed;
+	height: 50px;
+	background: #138D75;
+	color: #fff;
+	padding: 10px;
+	font-size: 20px;
+}
+.title a {
+	text-decoration: none;
+	color: #fff;
+}
+/* Toolbar content*/
+
+.toolbar {
+	margin-left: 16.67%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 100;
+	background: #FFF;
+}
+.login-button {
+	background: #138D75;
+	position: absolute;
+	border-color: #138D75;
+	color: #fff;
+	right: 20px;
+	top: 5px;
+	width: 70px;
+}
+.login-button:hover {
+	background: #16A085;
+}
+.login-button:active {
+	border-style: outset;
+	background: #138D75;
+	background-color: #138D75;
+	border-color: #16A085;
+}
+.logout-button {
+	position: absolute;
+	right: 20px;
+	top: 5px;
+	width: 70px;
+}
+#logged-name {
+	position: absolute;
+	right: 145px;
+	top: 15px;
+	color: #7F8C8D;
+}
+#logged-img {
+	position: absolute;
+	right: 100px;
+	top: 5px;
+	width: 37px;
+	border-radius: 50%;
+}
+.input-custom {
+	position: absolute;
+	top: 5px;
+	width: 40%;
+}
+/* Sidebar*/
+
+.sidebar {
+	position: fixed;
+	margin-top: 50px;
+	background: #16A085;
+	color: #fff;
+	height: 100vh;
+	left: 0;
+	overflow-y: auto;
+	position: fixed;
+	z-index: 1;
+	padding: 0 15px 0 15px;
+}
+#nav ul {
+	list-style: none;
+	padding: 20px;
+	padding-left: 0;
+	margin: 0;
+}
+#nav ul li a {
+	display: block;
+	padding: 0.5em;
+	color: #fff;
+	text-decoration: none;
+	font-size: 20px;
+}
+#nav ul li a:hover {
+	color: #0B5345;
+}
+/* Main section for other pages*/
+
+.main {
+	margin-left: 16.67%;
+	/* Same as the width of the sidebar */
+	background: #EBEDEF;
+	max-height: calc(100vh - 50px) !important;
+	;
+	position: relative;
+	margin-top: 50px;
+	overflow-y: scroll;
+}
+#add-button {
+	position: fixed;
+	bottom: 30px;
+	right: 25px;
+	background: #138D75;
+}
+#add-button:hover {
+	background: #16A085;
+}
+.card-style {
+	box-shadow: 0 0 10px 0 rgba(46, 60, 73, .2);
+	width: 100%;
+	display: inline-block;
+	margin: 10px 0 0;
+}
+.card-icons {
+	font-size: 22px;
+	padding-buttom: 0px;
+	color: #566573;
+}
+.card-icons i {
+	cursor: pointer;
+}
+.card-icons a {
+	color: #566573;
+}
+.giat-img {
+	max-height: calc(100vh - 50px) !important;
+}
+/* Form Styling*/
+
+form .form-button {
+	background: #138D75;
+	border-color: #138D75;
+	color: #fff;
+}
+form .form-button:hover {
+	background: #16A085;
+}
+.form-class {
+	padding: 20px;
+	margin-top: 30px;
+	box-shadow: 0 0 10px 0 rgba(46, 60, 73, .2);
+	border: 1px solid #dbe2e8;
+	border-radius: 7px;
+	background-color: #fff;
+}
+.form-header {
+	font-size: 35px;
+}
+/* hide title and sidebar items */
+
+.title-item, .side-bar-item {
+	display: none;
+}
+/* display the title and sidebar items for larger than 600px */
+
+@media screen and (min-width: 600px) {
+	.title-item, .side-bar-item {
+		display: inline;
+	}
+}
