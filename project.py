@@ -211,6 +211,31 @@ def showCategory(category_name):
                            login_session=login_session)
 
 
+# Create a new item
+@app.route('/catalog/new/', methods=['GET', 'POST'])
+def newItem():
+    if "username" not in login_session:
+        flash("Sorry you need to login before creating a new item !!",
+              "danger")
+        return redirect(url_for("home"))
+    if request.method == 'POST':
+        date = datetime.datetime.now().strftime('%d/%m/%Y')
+        print(date)
+        newitem = Items(name=request.form['name'],
+                        description=request.form['description'],
+                        category_id=request.form['category'],
+                        user_id=login_session['user_id'], date=date)
+        session.add(newitem)
+        session.commit()
+        flash('New Item "{}" is Successfully Created'.format(newitem.name),
+              "success")
+        return redirect(url_for('home'))
+    else:
+        categories = session.query(Category).all()
+        return render_template('newitem.html',
+                               login_session=login_session,
+                               categories=categories)
+
 
 # Search for an item
 @app.route("/search", methods=['POST'])
