@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Item Catalog</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <link rel = "stylesheet" href = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/styles.css') }}">
+    </head>
+    <body>
+        <!--Grid container-->
+        <div class="container-fluid h-100">
+          <div class="row h-100">
+            <!--App title-->
+            <div class="col-2 title">
+                <a href="/"><i class="fas fa-dice-d20"></i> <span class="title-item">Catalog App</span></a>
+            </div>
+            <!--Toolbar-->
+            <div class="col-10 toolbar">
+                <!--Search form-->
+                <form action="{{url_for('search')}}" method="post">
+                    <!--CSRF token-->
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="text" name="search" class="form-control input-custom" placeholder="Search ">
+                    <input type="submit" hidden>
+                </form>
+                <!--Login buttons and user info-->
+                {% if login_session['username'] %}
+                <h6 id="logged-name">{{ login_session['username'] }}</h6>
+                <img id="logged-img" src="{{ login_session['picture'] }}" alt="img">
+                <a href="/gdisconnect" class="btn btn-danger logout-button">Logout</a>
+                {% else %}
+                <button id="GoogleSignIn" class="btn login-button">Login</button>
+                {% endif %}
+            </div>
+            <!--Sidebar-->
+            <div class="col-2 sidebar">
+                <!-- Nav -->
+                <nav id="nav">
+                    <ul>
+                        <li><a href="{{url_for('showCategory', category_name='Soccer')}}"><i class="far fa-futbol"></i> <span class="side-bar-item">Soccer</span></a></li>
+                        <li><a href="{{url_for('showCategory', category_name='Basketball')}}"><i class="fas fa-basketball-ball"></i> <span class="side-bar-item">Basketball</span></a></li>
+                        <li><a href="{{url_for('showCategory', category_name='Baseball')}}"><i class="fas fa-baseball-ball"></i> <span class="side-bar-item">Baseball</span></a></li>
+                        <li><a href="{{url_for('showCategory', category_name='Hockey')}}"><i class="fas fa-hockey-puck"></i> <span class="side-bar-item">Hockey</span></a></li>
+                        <li><a href="{{url_for('showCategory', category_name='Football')}}"><i class="fas fa-football-ball"></i> <span class="side-bar-item">Football</span></a></li>
+                        <li><a href="{{url_for('showCategory', category_name='Golf')}}"><i class="fas fa-golf-ball"></i> <span class="side-bar-item">Golf</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!--Main content for each other page-->
+            <div class="col-10 main">
+                <!--Flash messages goes here-->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{category}} successMessage">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!--Block for each other page-->
+                {% block content %}
+                {% endblock %}
+
+                <button class="mdl-button  mdl-button--fab mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="add-button" onclick="location.href='{{url_for('newItem')}}'">
+                      <i class = "material-icons">add</i>
+                </button>
+            </div>
+          </div>
+        </div>
+        <!--Create state variable to be then used in main js file -->
+        <script>
+            var state = '{{STATE}}';
+        </script>
+        <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+        <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+        <script src = "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static',filename = 'js/main.js') }}"></script>
+    </body>
+</html>
